@@ -101,10 +101,22 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/6.0/topics/i18n/
+# Email (password reset / notifications)
+# --------------------------------------
+# The console backend prints emails to the terminal (good for development).
+# To send real emails, switch to SMTP backend and configure the settings below.
 
-LANGUAGE_CODE = 'en-us'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'alex.ser1302@gmail.com'
+EMAIL_HOST_PASSWORD = 'odag cbpx mqyt ypel'
+DEFAULT_FROM_EMAIL = 'alex.ser1302@gmail.com'
+
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'UTC'
 
@@ -120,7 +132,6 @@ STATIC_URL = 'static/'
 
 from django.urls import reverse_lazy
 LOGIN_URL = reverse_lazy('login')
-LOGIN_REDIRECT_URL = reverse_lazy('login')
-
-LOGOUT_URL = reverse_lazy('login')
+# Avoid redirection loops: after successful login, send the user to a non-login page.
+LOGIN_REDIRECT_URL = reverse_lazy('inicio')
 LOGOUT_REDIRECT_URL = reverse_lazy('login')

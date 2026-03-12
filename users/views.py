@@ -3,19 +3,25 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
+from users.models import Product
 from .forms import RegisterForm
 
 def index(request):
     return HttpResponse("<h1>Hello, world.</h1>")
 
 def inicio(request):
+    products = Product.objects.all()
     context = {
-        "name": "Mario Garcia",
-        "message": "Hello, world.",
-        "age": 45,
-        "example_list": [23, 5, 6, 7, 8, 9]
+        "products":products
     }
-    return render(request, "base.html", context=context)
+    return render(request, "base.html",context=context)
+
+def acerca_de(request):
+    return render(request, "acerca_de.html")
+
+def list_products(request):
+    products = Product.objects.all()
+    return render(request, "products.html",context={"products":products})
 
 def register(request):
     if request.method == 'POST':
